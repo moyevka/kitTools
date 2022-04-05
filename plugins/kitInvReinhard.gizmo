@@ -1,0 +1,61 @@
+#! C:/Program Files/Nuke12.2v5/nuke-12.2.5.dll -nx
+version 12.2 v5
+Gizmo {
+ inputs 3
+ tile_color 0xbd3a3aff
+ addUserKnob {20 kitInvReinhard}
+ addUserKnob {41 max l Clamp t "The inverse Reinhard operation pushes values of 1 into infinity. Raising this value by slight amounts acts as a simple clamp." T Clamp2.maximum}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 InversedReinhard l "<b>kitInvReinhard |</b>" t "This applies a simple inversed Reinhard tonemapping operation, extrapolating highlights past 1. It's a crude method that works best for defocusing highlights.\n\nRemember to apply the companion Reinhard gizmo to tonemap the image back to SDR space after the HDR operations." T "turns SDR input into HDR (see tooltip)"}
+}
+ Input {
+  inputs 0
+  name Input
+  xpos -572
+  ypos -226
+ }
+set Nff3ebc00 [stack 0]
+ Dot {
+  name Dot1
+  xpos -325
+  ypos -223
+ }
+push $Nff3ebc00
+ Add {
+  value 4
+  name Add3
+  xpos -572
+  ypos -186
+ }
+ Clamp {
+  maximum 1.003
+  name Clamp2
+  xpos -572
+  ypos -150
+ }
+push $Nff3ebc00
+ Dot {
+  name Dot2
+  xpos -435
+  ypos -183
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge4
+  xpos -469
+  ypos -144
+ }
+ Merge2 {
+  inputs 2
+  operation divide
+  name Merge5
+  xpos -359
+  ypos -144
+ }
+ Output {
+  name Output1
+  xpos -359
+  ypos -44
+ }
+end_group

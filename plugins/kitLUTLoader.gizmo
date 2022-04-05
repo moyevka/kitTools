@@ -1,0 +1,110 @@
+#! C:/Program Files/Nuke12.2v5/nuke-12.2.5.dll -nx
+version 12.2 v5
+Gizmo {
+ inputs 3
+ tile_color 0xff5656ff
+ addUserKnob {20 kitLUTLoader}
+ addUserKnob {41 vfield_file l LUT T Vectorfield.vfield_file}
+ addUserKnob {41 file_type l "file type" T Vectorfield.file_type}
+ addUserKnob {41 interpolation T Vectorfield.interpolation}
+ addUserKnob {41 colorspaceIn l "colorspace in" T Vectorfield.colorspaceIn}
+ addUserKnob {41 colorspaceOut l "colorspace out" T Vectorfield.colorspaceOut}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 chromaMix l chroma T Merge1.mix}
+ addUserKnob {41 lumaMix l luma T Merge2.mix}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 mix T Merge3.mix}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 footer l "<b>kitLUTLoader |</b>" T "now with chroma and luma controls. v2"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 400
+  ypos -273
+ }
+set N9a87a000 [stack 0]
+ Vectorfield {
+  name Vectorfield
+  colorspaceIn sRGB
+  colorspaceOut sRGB
+  xpos -370
+  ypos 207
+ }
+set N508b8800 [stack 0]
+push $N9a87a000
+ Merge2 {
+  inputs 2
+  operation copy
+  name Merge2
+  xpos 510
+  ypos -201
+ }
+ Colorspace {
+  colorspace_out HSV
+  name Colorspace2
+  xpos 510
+  ypos -129
+ }
+push $N508b8800
+push $N9a87a000
+ Merge2 {
+  inputs 2
+  operation copy
+  name Merge1
+  xpos 400
+  ypos -201
+ }
+ Colorspace {
+  colorspace_out HSV
+  name Colorspace1
+  xpos 400
+  ypos -129
+ }
+ Shuffle2 {
+  inputs 2
+  fromInput1 {{0} B A}
+  in1 rgb
+  fromInput2 {{1} B A}
+  in2 rgb
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 black -1 -1 rgba.alpha 0 3 rgba.blue 1 2 rgba.blue 0 2"
+  name Shuffle1
+  xpos 455
+  ypos -46
+ }
+ Colorspace {
+  colorspace_in HSV
+  name Colorspace3
+  xpos 455
+  ypos 26
+ }
+push $N9a87a000
+ Dot {
+  name Dot1
+  xpos 371
+  ypos -270
+ }
+ Dot {
+  name Dot2
+  xpos 371
+  ypos 104
+ }
+ Merge2 {
+  inputs 2
+  operation copy
+  name Merge3
+  xpos 455
+  ypos 101
+ }
+ Output {
+  name Output1
+  xpos 455
+  ypos 166
+ }
+ Viewer {
+  frame_range 1-100
+  name Viewer1
+  xpos 605
+  ypos 166
+ }
+end_group

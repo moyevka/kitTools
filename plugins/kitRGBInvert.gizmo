@@ -1,0 +1,36 @@
+#! C:/Program Files/Nuke12.2v3/nuke-12.2.3.dll -nx
+version 12.2 v3
+Gizmo {
+ tile_color 0xff5656ff
+ addUserKnob {20 User}
+ addUserKnob {26 text l "@b;kitRGBInvert |" T "Performs an Invert on the image in RGB space"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -55
+  ypos -101
+ }
+ Colorspace {
+  colorspace_out sRGB
+  name Colorspace1
+  xpos -55
+  ypos -61
+ }
+ Invert {
+  name Invert1
+  xpos -55
+  ypos -37
+ }
+ Colorspace {
+  colorspace_in sRGB
+  name Colorspace2
+  xpos -55
+  ypos -1
+ }
+ Output {
+  name Output1
+  xpos -55
+  ypos 99
+ }
+end_group

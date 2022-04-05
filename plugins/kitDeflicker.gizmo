@@ -1,0 +1,78 @@
+#! C:/Program Files/Nuke12.2v5/nuke-12.2.5.dll -nx
+version 12.2 v5
+Gizmo {
+tile_color 0xd1aeaeff
+addUserKnob {20 User}
+addUserKnob {41 first_frame l "input frame" t "Set this to the frame with your target luminance." T FrameHold1.first_frame}
+addUserKnob {26 "" +STARTLINE}
+addUserKnob {26 text l "<b>kitDeflicker |</b>" T "eliminates luminance changes. requires static camera"}
+}
+Input {
+inputs 0
+name Input
+xpos 198
+ypos -210
+}
+Colorspace {
+colorspace_out YCbCr
+name Colorspace1
+xpos 198
+ypos -186
+}
+set N972b7000 [stack 0]
+Blur {
+size 200
+name Blur1
+xpos 308
+ypos -192
+}
+set N972b6c00 [stack 0]
+Dot {
+name Dot1
+xpos 418
+ypos -183
+}
+FrameHold {
+name FrameHold1
+xpos 384
+ypos -165
+}
+Dot {
+name Dot2
+xpos 418
+ypos -129
+}
+push $N972b6c00
+Merge2 {
+inputs 2
+operation divide
+Achannels {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+Bchannels {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+output {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+name Merge1
+xpos 308
+ypos -132
+}
+push $N972b7000
+Merge2 {
+inputs 2
+operation multiply
+Achannels {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+Bchannels {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+output {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+name Multiply
+xpos 198
+ypos -132
+}
+Colorspace {
+colorspace_in YCbCr
+name Colorspace2
+xpos 198
+ypos -108
+}
+Output {
+name Output1
+xpos 198
+ypos -84
+}
+end_group
