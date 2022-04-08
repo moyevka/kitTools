@@ -5,7 +5,7 @@ A small collection of weird gizmos I've made for Nuke.
 Useful for applying LUTs to your scene. Wrapper for the Vectorfield node for ease of use. Includes luma / chroma and a mix slider.
 
 ### kitRGBInvert
-Inverts an image in the RGB space rather than linear, gives slightly different results.
+Inverts an image in sRGB gamma rather than linear, gives slightly different results.
 
 ### kitInvReinhard & kitReinhard
 Applies an inverse Reinhard tonemap to the input, boosting original values that approach 1 to pretty extreme luminance values. Useful for nicer bokeh highlights, glints & glows, whatever effect that benefits from HDR inputs. 
