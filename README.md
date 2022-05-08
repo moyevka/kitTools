@@ -2,7 +2,7 @@
 A small collection of weird gizmos I've made for Nuke.
 
 ### kitLUTLoader
-Useful for applying LUTs to your scene. Wrapper for the Vectorfield node for ease of use. Includes luma / chroma and a mix slider.
+Useful for applying LUTs to your scene. Wrapper for the OCIO FileTransform node for ease of use. Includes luma / chroma and a mix slider.
 
 ### kitRGBInvert
 Inverts an image in sRGB gamma rather than linear, gives slightly different results.
